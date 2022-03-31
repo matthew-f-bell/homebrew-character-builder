@@ -3,10 +3,10 @@ An app built using Django that helps you build custom characters for table-top g
 Characters will be able to have multiple abilities.
 
 ## ERD
-![ERD](Prep/erd.jpg)
+![ERD](Prep/fixed-erd.jpg)
 
 ## User Story
-![User Story](Prep/user-story.jpg)
+![User Story](Prep/fixed-user-story.jpg)
 
 ## Wireframe
-![Wireframe](Prep/wireframes.jpg)
+![Wireframe](Prep/fixed-wireframes.jpg)
