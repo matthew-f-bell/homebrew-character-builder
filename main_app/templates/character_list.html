@@ -8,8 +8,12 @@
     <a href="{% url 'character-create' %}">Create a Character</a>
     <h1>All Characters:</h1>
     {% for character in characters %}
-    <img src="{{character.image}}" alt="{{character.name}}">
-    <h3>Name: {{character.name}}</h3>
+    <a href="{% url 'character-detail' character.pk %}">
+        <img src="{{character.image}}" alt="{{character.name}}">
+    </a>
+    <a href="{% url 'character-detail' character.pk %}">
+        <h3>Name: {{character.name}}</h3>
+    </a>
     <h3>Race: {{character.race}}</h3>
     <h3>Class: {{character.character_class}}</h3>
     {% endfor %}

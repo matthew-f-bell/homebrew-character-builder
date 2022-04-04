@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{character.name}} | DnD Character Builder
+{% endblock %}
+
+{% block body %}
+    <div>
+        <img src="{{character.image}}" alt="{{character.name}}">
+    </div>
+    <div>
+        <h1>{{character.name}}</h1>
+    </div>
+    <div>
+        <h3>Age: {{character.age}}</h3>
+        <h3>Race: {{character.race}}</h3>
+        <h3>Class: {{character.character_class}}</h3>
+        <h3>Strength: {{character.strength}}</h3>
+        <h3>Dexteriy: {{character.dexteriy}}</h3>
+        <h3>Constitution: {{character.constitution}}</h3>
+        <h3>Intelligence: {{character.intelligence}}</h3>
+        <h3>Wisdom: {{character.wisdom}}</h3>
+        <h3>Charisma: {{character.charisma}}</h3>
+    </div>
+{% endblock %}
