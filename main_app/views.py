@@ -1,7 +1,7 @@
 from email import charset
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView
 from django.http import HttpResponse
 from .models import Character
@@ -27,3 +27,9 @@ class Character_Create(CreateView):
 class Character_Detail(DetailView):
         model = Character
         template_name = 'character_detail.html'
+
+class Character_Update(UpdateView):
+        model = Character
+        fields = '__all__'
+        template_name = 'character_update.html'
+        success_url = '/characters/'

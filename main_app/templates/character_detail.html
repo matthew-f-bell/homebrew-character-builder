@@ -22,4 +22,7 @@
         <h3>Wisdom: {{character.wisdom}}</h3>
         <h3>Charisma: {{character.charisma}}</h3>
     </div>
+    <div>
+        <a href="{% url 'character-update' character.pk %}">Update</a>
+    </div>
 {% endblock %}
