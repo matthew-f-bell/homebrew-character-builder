@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+    <a href="{% url 'character-create' %}">Create a Character</a>
     <h1>All Characters:</h1>
     {% for character in characters %}
     <img src="{{character.image}}" alt="{{character.name}}">
