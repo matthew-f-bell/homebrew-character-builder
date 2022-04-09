@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{spell.name}} | DnD Character Builder
+{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>{{spell.name}}</h1>
+    </div>
+    <div>
+        <h3>Level: {{spell.level}}</h3>
+        <h3>Class: {{spell.character_class}}</h3>
+        <h3>Description: {{spell.desc}}</h3>
+    </div>
+{% endblock %}

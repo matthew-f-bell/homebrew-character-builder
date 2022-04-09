@@ -8,6 +8,6 @@ urlpatterns = [
     path('characters/<int:pk>/', views.Character_Detail.as_view(), name="character-detail"),
     path('characters/<int:pk>/update', views.Character_Update.as_view(), name="character-update"),
     path('characters/<int:pk>/delete', views.Character_Delete.as_view(), name="character-delete"),
-    path('spells/', views.Spell_List.as_view(), name="spell-list"),
-    path('spells/<int:spells_id>', views.Spell_Detail.as_view(), name="spell-detail"),
+    path('spells/', views.spell_list, name="spell-list"),
+    path('spells/<int:spells_id>', views.spell_detail, name="spell-detail"),
 ]

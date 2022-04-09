@@ -22,10 +22,16 @@ CLASSES_OF_CHARACTERS = {
     ("Wizard", "wizard")
 }
 
+class Character_Class(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
 class Spell(models.Model):
     name = models.CharField(max_length=50)
     level = models.IntegerField()
-    character_class = models.CharField(max_length=50, choices = CLASSES_OF_CHARACTERS)
+    character_class = models.ManyToManyField(Character_Class)
     desc = models.CharField(max_length=2500)
 
     def __str__(self):
@@ -51,7 +57,7 @@ class Character(models.Model):
     name = models.CharField(max_length=50)
     age = models.IntegerField()
     race = models.CharField(max_length=50)
-    character_class = models.CharField(max_length=50, choices = CLASSES_OF_CHARACTERS)
+    character_class = models.ManyToManyField(Character_Class)
     strength = models.IntegerField()
     dexterity = models.IntegerField()
     constitution = models.IntegerField()
@@ -60,6 +66,7 @@ class Character(models.Model):
     charisma = models.IntegerField()
     image = models.CharField(max_length=250)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    spells = models.ManyToManyField(Spell)
 
     def __str__(self):
         return self.name

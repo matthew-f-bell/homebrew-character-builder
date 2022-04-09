@@ -1,4 +1,4 @@
-from email import charset
+from django.urls import reverse
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -15,8 +15,12 @@ class Character_List(TemplateView):
         template_name = 'character_list.html'
         def get_context_data(self, **kwargs):
                 context = super().get_context_data(**kwargs)
-                context["characters"] = Character.objects.all()
-                return context 
+                name = self.request.GET.get("name")
+                if name != None:
+                        context["characters"] = Character.objects.filter(name__icontains=name)
+                else:
+                        context["characters"] = Character.objects.all()
+                return context
 
 class Character_Create(CreateView):
         model = Character
@@ -44,13 +48,10 @@ class Character_Delete(DeleteView):
         template_name = 'character_delete_confirmation.html'
         success_url = '/characters/'
 
-class Spell_List(TemplateView):
-        template_name = 'spell_list.html'
-        def get_context_data(self, **kwargs):
-            context = super().get_context_data(**kwargs)
-            context["spells"] = Spell.objects.all()
-            return context
+def spell_list(request):
+        spells = Spell.objects.all()
+        return render(request, 'spell_list.html', {'spells': spells})
 
-class Spell_Detail(DetailView):
-        model = Spell
-        template_name = 'spell_detail.html'
+def spell_detail(request, spell_id):
+        spell = Spell.objects.get(id=spell_id)
+        return render(request, 'spell_detail.html', {'spell': spell})

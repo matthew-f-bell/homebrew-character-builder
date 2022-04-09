@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    List of Spells | DnD Character Builder
+{% endblock %}
+
+{% block body %}
+    <h1>All Characters:</h1>
+    {% for spell in spells %}
+    <div>
+        <a href="{% url 'spell-detail' spell.id %}">
+            <h3>Name: {{spell.name}}</h3>
+        </a>
+        <h3>Level: {{spell.level}}</h3>
+        <h3>Class: {{spell.character_class}}</h3>
+    </div>
+    {% endfor %}
+{% endblock %}
