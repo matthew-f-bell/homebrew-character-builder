@@ -8,11 +8,17 @@
     <h1>All Characters:</h1>
     {% for spell in spells %}
     <div>
-        <a href="{% url 'spell-detail' spell.id %}">
-            <h3>Name: {{spell.name}}</h3>
-        </a>
+            <h3>Name:
+                <a href="{% url 'spell-detail' spell.id %}">
+                    {{spell.name}}
+                </a>
+            </h3>
         <h3>Level: {{spell.level}}</h3>
-        <h3>Class: {{spell.character_class}}</h3>
+        <h3>Class: 
+            {% for character_class in spell.character_class.all %}
+                <span>{{ character_class.name }}</span>
+            {% endfor %}
+        </h3>
     </div>
     {% endfor %}
 {% endblock %}

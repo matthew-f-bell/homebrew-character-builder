@@ -7,21 +7,6 @@ from .managers import CustomUserManager
 
 
 # Create your models here.
-CLASSES_OF_CHARACTERS = {
-    ("Rogue", "rogue"),
-    ("Bard", "bard"),
-    ("Barbarian", "barbarian"),
-    ("Cleric", "cleric"),
-    ("Druid", "druid"),
-    ("Fighter", "fighter"),
-    ("Monk", "monk"),
-    ("Paladin", "paladin"),
-    ("Ranger", "ranger"),
-    ("Sorcerer", "sorcerer"),
-    ("Warlock", "warlock"),
-    ("Wizard", "wizard")
-}
-
 class Character_Class(models.Model):
     name = models.CharField(max_length=50)
 
@@ -36,6 +21,9 @@ class Spell(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['name']
 
 
 class User(AbstractBaseUser):
@@ -66,7 +54,7 @@ class Character(models.Model):
     charisma = models.IntegerField()
     image = models.CharField(max_length=250)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    spells = models.ManyToManyField(Spell)
+    spells = models.ManyToManyField(Spell, blank=True)
 
     def __str__(self):
         return self.name
