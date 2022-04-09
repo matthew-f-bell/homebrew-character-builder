@@ -12,6 +12,9 @@ psycopg2 = "*"
 whitenoise = "*"
 django = "*"
 django-sass = "*"
+libsass = "*"
+django-compressor = "*"
+django-sass-processor = "*"
 
 [dev-packages]
 
