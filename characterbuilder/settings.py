@@ -12,8 +12,31 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
-load_dotenv()
+import socket
+import psycopg2
+import dj_database_url
+# from dotenv import load_dotenv
+# load_dotenv()
+
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+# If the host name starts with 'live', DJANGO_HOST = "production"
+if socket.gethostname().startswith('live'):
+    DJANGO_HOST = "production"
+# Else if host name starts with 'test', set DJANGO_HOST = "test"
+elif socket.gethostname().startswith('test'): 
+    DJANGO_HOST = "testing"
+else:
+# If host doesn't match, assume it's a development server, set DJANGO_HOST = "development"
+    DJANGO_HOST = "development"
+# Define general behavior variables for DJANGO_HOST and all others
+if DJANGO_HOST == "production":
+    DEBUG = False
+    STATIC_URL = 'https://homebrew-character-builder.herokuapp.com/'
+else:
+    DEBUG = True
+    STATIC_URL = '/static/'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,9 +49,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'homebrew-character-builder.herokuapp.com'
+]
 
 
 # Application definition
@@ -46,6 +71,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -59,7 +85,9 @@ ROOT_URLCONF = 'characterbuilder.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            '/www/STORE/main_app/templates/'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,6 +112,8 @@ DATABASES = {
         'NAME': 'characterbuilder',
     }
 }
+
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
 # Password validation
@@ -122,7 +152,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -138,3 +170,5 @@ SASS_PROCESSOR_ROOT = STATIC_ROOT
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/'
