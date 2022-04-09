@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete {{character.name}} | DnD Character Builder
+{% endblock %}
+
+{% block body %}
+    <h1>Are you sure you want to delete?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <input type="submit" value="Confirm" />
+            <a href="{% url 'character-detail' character.pk %}">Cancel</a>
+        </div>
+    </form>
+{% endblock %}
