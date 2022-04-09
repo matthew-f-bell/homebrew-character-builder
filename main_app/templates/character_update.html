@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Update {{character.name}} | DnD Character Builder
+{% endblock %}
+
+{% block body %}
+    <h1>Update {{character.name}}:</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}
