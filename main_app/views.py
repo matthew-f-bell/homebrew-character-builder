@@ -1,34 +1,57 @@
-from email import charset
+from django.urls import reverse
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
-from django.http import HttpResponse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView
+from django.http import HttpResponse, HttpResponseRedirect
+from .models import Character, Spell
 
 # Create your views here.
 
 class Home(TemplateView):
         template_name = 'home.html'
 
-class Character:
-        def __init__(self, name, age, race, character_class, strength, dexterity, constitution, intelligence, wisdom, charisma, image):
-                self.name = name
-                self.age = age
-                self.race = race
-                self.character_class = character_class
-                self.strength = strength
-                self.dexterity = dexterity
-                self.constitution = constitution
-                self.intelligence = intelligence
-                self.wisdom = wisdom
-                self.charisma = charisma
-                self.image = image
-
-characters = [
-        Character('Eldril', 500, 'Elf', 'Rogue', 18, 16, 12, 9, 12, 10, 'https://blackcitadelrpg.com/wp-content/uploads/2021/12/Timberwatch-Elf-.jpg')
-]
-
 class Character_List(TemplateView):
         template_name = 'character_list.html'
         def get_context_data(self, **kwargs):
                 context = super().get_context_data(**kwargs)
-                context["characters"] = characters
-                return context 
+                name = self.request.GET.get("name")
+                if name != None:
+                        context["characters"] = Character.objects.filter(name__icontains=name)
+                else:
+                        context["characters"] = Character.objects.all()
+                return context
+
+class Character_Create(CreateView):
+        model = Character
+        fields = '__all__'
+        template_name = 'character_create.html'
+
+        def form_valid(self, form):
+                self.object = form.save(commit=False)
+                self.object.user = self.request.user
+                self.object.save()
+                return HttpResponseRedirect('/characters')
+
+class Character_Detail(DetailView):
+        model = Character
+        template_name = 'character_detail.html'
+
+class Character_Update(UpdateView):
+        model = Character
+        fields = '__all__'
+        template_name = 'character_update.html'
+        success_url = '/characters/'
+
+class Character_Delete(DeleteView):
+        model = Character
+        template_name = 'character_delete_confirmation.html'
+        success_url = '/characters/'
+
+def spell_list(request):
+        spells = Spell.objects.all()
+        return render(request, 'spell_list.html', {'spells': spells})
+
+def spell_detail(request, spell_id):
+        spell = Spell.objects.get(id=spell_id)
+        return render(request, 'spell_detail.html', {'spell': spell})
