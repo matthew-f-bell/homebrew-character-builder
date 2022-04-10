@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- Tab Title -->
+{% block title %}
+    Login
+{% endblock %}
+<!-- Body Content -->
+{% block body %}
+    <h1>Login</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Login">
+    </form>
+{% endblock %}
