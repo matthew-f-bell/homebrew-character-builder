@@ -5,6 +5,11 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Character, Spell
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 
 # Create your views here.
 
@@ -55,3 +60,25 @@ def spell_list(request):
 def spell_detail(request, spell_id):
         spell = Spell.objects.get(id=spell_id)
         return render(request, 'spell_detail.html', {'spell': spell})
+
+def login_view(request):
+        if request.method == 'POST':
+                form = AuthenticationForm(request, request.POST)
+                if form.is_valid():
+                        u = form.cleaned_data['username']
+                        p = form.cleaned_data['password']
+                        user = authenticate(username = u, password = p)
+                        if user is not None:
+                                if user.is_active:
+                                        login(request, user)
+                                        return HttpResponseRedirect('/user/'+u)
+                                else:
+                                        return render(request, 'login.html', {'form': form})
+                        else: 
+                                return render(request, 'login.html', {'form': form})
+                else:
+                        return render(request, 'signup.html', {'form': form})
+        else:
+                form = AuthenticationForm()
+                return render(request, 'login.html', {'form': form})
+
