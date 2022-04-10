@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from .forms import RegistrationForm
 
 
 # Create your views here.
@@ -65,9 +66,9 @@ def login_view(request):
         if request.method == 'POST':
                 form = AuthenticationForm(request, request.POST)
                 if form.is_valid():
-                        u = form.cleaned_data['username']
+                        u = form.cleaned_data['email']
                         p = form.cleaned_data['password']
-                        user = authenticate(username = u, password = p)
+                        user = authenticate(email = u, password = p)
                         if user is not None:
                                 if user.is_active:
                                         login(request, user)
@@ -88,14 +89,19 @@ def logout_view(request):
 
 def signup_view(request):
         if request.method == 'POST':
-                form = UserCreationForm(request.POST)
+                form = RegistrationForm(request.POST)
                 if form.is_valid():
                         user = form.save()
+                        user.refresh_from_db()
+                        user.first_name = form.cleaned_data.get('first_name')
+                        user.last_name = form.cleaned_data.get('last_name')
+                        user.email = form.cleaned_data.get('email')
+                        user.save()
                         login(request, user)
                         print('HEY ', user.first_name)
                         return HttpResponseRedirect('/user/'+str(user))
                 else:
                         return render(request, 'signup.html', {'form': form})
         else:
-                form = UserCreationForm()
+                form = RegistrationForm()
                 return render(request, 'signup.html', {'form': form})

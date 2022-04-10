@@ -25,7 +25,6 @@ class Spell(models.Model):
     class Meta:
         ordering = ['name']
 
-
 class User(AbstractBaseUser):
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(max_length=50)
@@ -39,7 +38,6 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.email
-
 
 class Character(models.Model):
     name = models.CharField(max_length=50)
@@ -61,5 +59,3 @@ class Character(models.Model):
 
     class Meta:
         ordering = ['name']
-
-
