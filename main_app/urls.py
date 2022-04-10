@@ -10,4 +10,7 @@ urlpatterns = [
     path('characters/<int:pk>/delete', views.Character_Delete.as_view(), name="character-delete"),
     path('spells/', views.spell_list, name="spell-list"),
     path('spells/<int:spell_id>', views.spell_detail, name="spell-detail"),
+    path('login/', views.login_view, name="login"),
+    path('logout/', views.logout_view, name="logout"),
+    path('signup/', views.signup_view, name="signup"),
 ]
