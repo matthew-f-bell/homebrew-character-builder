@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 import socket
 import psycopg2
-# import dj_database_url
+import dj_database_url
 # from dotenv import load_dotenv
 # load_dotenv()
 
