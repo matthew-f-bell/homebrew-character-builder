@@ -18,12 +18,12 @@
         {% if user.is_authenticated %}
         <span>Hello, {{ user.first_name }}!</span>
         <span>|</span>
-        <span>Logout</span>
+        <span><a href="{% url 'logout' %}">Logout</a></span>
         <span>|</span>
         {% else %}
-        <span>Login</span>
+        <span><a href="{% url 'login' %}">Login</a></span>
         <span>|</span>
-        <span>Sign-up</span>
+        <span><a href="{% url 'signup' %}">Sign-up</a></span>
         <span>|</span>
         {% endif %}
         <a href="/">Home</a>

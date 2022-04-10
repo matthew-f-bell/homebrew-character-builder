@@ -57,7 +57,8 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # DEBUG = True
 
 ALLOWED_HOSTS = [
-    'homebrew-character-builder.herokuapp.com'
+    'homebrew-character-builder.herokuapp.com',
+    '127.0.0.1'
 ]
 
 
@@ -118,7 +119,7 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
 # Password validation
