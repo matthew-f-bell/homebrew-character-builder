@@ -86,3 +86,16 @@ def logout_view(request):
         logout(request)
         return HttpResponseRedirect('/characters')
 
+def signup_view(request):
+        if request.method == 'POST':
+                form = UserCreationForm(request.POST)
+                if form.is_valid():
+                        user = form.save()
+                        login(request, user)
+                        print('HEY ', user.first_name)
+                        return HttpResponseRedirect('/user/'+str(user))
+                else:
+                        return render(request, 'signup.html', {'form': form})
+        else:
+                form = UserCreationForm()
+                return render(request, 'signup.html', {'form': form})
