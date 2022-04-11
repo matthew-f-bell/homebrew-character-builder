@@ -13,6 +13,9 @@ class Character_Class(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
 class Spell(models.Model):
     name = models.CharField(max_length=50)
     level = models.IntegerField()
