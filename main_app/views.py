@@ -3,10 +3,10 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from .models import Character, Spell
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .forms import RegistrationForm
@@ -66,13 +66,13 @@ def login_view(request):
         if request.method == 'POST':
                 form = AuthenticationForm(request, request.POST)
                 if form.is_valid():
-                        u = form.cleaned_data['email']
+                        u = form.cleaned_data['username']
                         p = form.cleaned_data['password']
-                        user = authenticate(email = u, password = p)
+                        user = authenticate(username = u, password = p)
                         if user is not None:
                                 if user.is_active:
                                         login(request, user)
-                                        return HttpResponseRedirect('/user/'+u)
+                                        return HttpResponseRedirect('/')
                                 else:
                                         return render(request, 'login.html', {'form': form})
                         else: 
@@ -99,7 +99,7 @@ def signup_view(request):
                         user.save()
                         login(request, user)
                         print('HEY ', user.first_name)
-                        return HttpResponseRedirect('/user/'+str(user))
+                        return HttpResponseRedirect('/')
                 else:
                         return render(request, 'signup.html', {'form': form})
         else:
