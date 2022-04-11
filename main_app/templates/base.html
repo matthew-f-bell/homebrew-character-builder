@@ -14,6 +14,25 @@
     </title>
 </head>
 <body>
+    <nav>
+        {% if user.is_authenticated %}
+        <span>Hello, <a href="{% url 'profile' user.id %}">{{ user.first_name }}</a>!</span>
+        <span>|</span>
+        <span><a href="{% url 'logout' %}">Logout</a></span>
+        <span>|</span>
+        {% else %}
+        <span><a href="{% url 'login' %}">Login</a></span>
+        <span>|</span>
+        <span><a href="{% url 'signup' %}">Sign-up</a></span>
+        <span>|</span>
+        {% endif %}
+        <a href="/">Home</a>
+        <span>|</span>
+        <a href="/spells">Spells</a>
+        <span>|</span>
+        <a href="{% url 'character-create' %}">Create a Character</a>
+        <span>|</span>
+    </nav>
     {% block body %}
     {% endblock %}
 </body>

@@ -3,8 +3,14 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
-from django.http import HttpResponse, HttpResponseRedirect
-from .models import Character, Spell
+from django.http import HttpResponseRedirect
+from .models import Character, Spell, User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from .forms import RegistrationForm
+
 
 # Create your views here.
 
@@ -22,9 +28,10 @@ class Character_List(TemplateView):
                         context["characters"] = Character.objects.all()
                 return context
 
+@method_decorator(login_required, name='dispatch')
 class Character_Create(CreateView):
         model = Character
-        fields = '__all__'
+        fields = ['name', 'age', 'race', 'character_class', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma', 'image', 'spells']
         template_name = 'character_create.html'
 
         def form_valid(self, form):
@@ -33,16 +40,19 @@ class Character_Create(CreateView):
                 self.object.save()
                 return HttpResponseRedirect('/characters')
 
+@method_decorator(login_required, name='dispatch')
 class Character_Detail(DetailView):
         model = Character
         template_name = 'character_detail.html'
 
+@method_decorator(login_required, name='dispatch')
 class Character_Update(UpdateView):
         model = Character
         fields = '__all__'
         template_name = 'character_update.html'
         success_url = '/characters/'
 
+@method_decorator(login_required, name='dispatch')
 class Character_Delete(DeleteView):
         model = Character
         template_name = 'character_delete_confirmation.html'
@@ -55,3 +65,53 @@ def spell_list(request):
 def spell_detail(request, spell_id):
         spell = Spell.objects.get(id=spell_id)
         return render(request, 'spell_detail.html', {'spell': spell})
+
+def login_view(request):
+        if request.method == 'POST':
+                form = AuthenticationForm(request, request.POST)
+                if form.is_valid():
+                        u = form.cleaned_data['username']
+                        p = form.cleaned_data['password']
+                        user = authenticate(username = u, password = p)
+                        if user is not None:
+                                if user.is_active:
+                                        login(request, user)
+                                        return HttpResponseRedirect('/')
+                                else:
+                                        return render(request, 'login.html', {'form': form})
+                        else: 
+                                return render(request, 'login.html', {'form': form})
+                else:
+                        return render(request, 'signup.html', {'form': form})
+        else:
+                form = AuthenticationForm()
+                return render(request, 'login.html', {'form': form})
+
+def logout_view(request):
+        logout(request)
+        return HttpResponseRedirect('/characters')
+
+def signup_view(request):
+        if request.method == 'POST':
+                form = RegistrationForm(request.POST)
+                if form.is_valid():
+                        user = form.save()
+                        user.refresh_from_db()
+                        user.first_name = form.cleaned_data.get('first_name')
+                        user.last_name = form.cleaned_data.get('last_name')
+                        user.email = form.cleaned_data.get('email')
+                        user.save()
+                        login(request, user)
+                        print('HEY ', user.first_name)
+                        return HttpResponseRedirect('/')
+                else:
+                        return render(request, 'signup.html', {'form': form})
+        else:
+                form = RegistrationForm()
+                return render(request, 'signup.html', {'form': form})
+
+@login_required
+def profile(request, user_id):
+        user = User.objects.get(id=user_id)
+        characters = Character.objects.filter(user=user)
+        return render(request, 'profile.html', {'id': id, 'characters': characters})

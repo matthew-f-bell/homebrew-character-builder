@@ -5,9 +5,12 @@
 {% endblock %}
 
 {% block body %}
-    <div>
-        <img src="{{character.image}}" alt="{{character.name}}">
-    </div>
+    {% if character.image %}
+        <div>
+            <img src="{{character.image}}" alt="{{character.name}}">
+        </div>
+    {% else %}
+    {% endif %}
     <div>
         <h1>{{character.name}}</h1>
     </div>
@@ -26,8 +29,12 @@
         <h3>Wisdom: {{character.wisdom}}</h3>
         <h3>Charisma: {{character.charisma}}</h3>
     </div>
+    <p>Created By: <a href="{% url 'profile' character.user.id %}">{{ character.user.first_name }}</a></p>
+    {% if character.user.id is user.id %}
     <div>
         <a href="{% url 'character-update' character.pk %}">Update</a>
         <a href="{% url 'character-delete' character.pk %}">Delete</a>
     </div>
+    {% else %}
+    {% endif %}
 {% endblock %}

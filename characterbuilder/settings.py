@@ -18,8 +18,8 @@ import dj_database_url
 # from dotenv import load_dotenv
 # load_dotenv()
 
-DATABASE_URL = os.environ['DATABASE_URL']
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+# DATABASE_URL = os.environ['DATABASE_URL']
+# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 # If the host name starts with 'live', DJANGO_HOST = "production"
 if socket.gethostname().startswith('live'):
@@ -57,7 +57,8 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # DEBUG = True
 
 ALLOWED_HOSTS = [
-    'homebrew-character-builder.herokuapp.com'
+    'homebrew-character-builder.herokuapp.com',
+    '127.0.0.1'
 ]
 
 
@@ -118,7 +119,7 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
 # Password validation
@@ -140,7 +141,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Use Custom User Model
-
+AUTH_USER_MODEL = 'main_app.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -178,4 +179,5 @@ SASS_PROCESSOR_ROOT = STATIC_ROOT
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
