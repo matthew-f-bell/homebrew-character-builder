@@ -28,6 +28,7 @@ class Character_List(TemplateView):
                         context["characters"] = Character.objects.all()
                 return context
 
+@method_decorator(login_required, name='dispatch')
 class Character_Create(CreateView):
         model = Character
         fields = '__all__'
@@ -39,16 +40,19 @@ class Character_Create(CreateView):
                 self.object.save()
                 return HttpResponseRedirect('/characters')
 
+@method_decorator(login_required, name='dispatch')
 class Character_Detail(DetailView):
         model = Character
         template_name = 'character_detail.html'
 
+@method_decorator(login_required, name='dispatch')
 class Character_Update(UpdateView):
         model = Character
         fields = '__all__'
         template_name = 'character_update.html'
         success_url = '/characters/'
 
+@method_decorator(login_required, name='dispatch')
 class Character_Delete(DeleteView):
         model = Character
         template_name = 'character_delete_confirmation.html'
