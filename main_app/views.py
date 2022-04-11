@@ -4,7 +4,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.http import HttpResponseRedirect
-from .models import Character, Spell
+from .models import Character, Spell, User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -31,7 +31,7 @@ class Character_List(TemplateView):
 @method_decorator(login_required, name='dispatch')
 class Character_Create(CreateView):
         model = Character
-        fields = '__all__'
+        fields = ['name', 'age', 'race', 'character_class', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma', 'image', 'spells']
         template_name = 'character_create.html'
 
         def form_valid(self, form):
@@ -109,3 +109,9 @@ def signup_view(request):
         else:
                 form = RegistrationForm()
                 return render(request, 'signup.html', {'form': form})
+
+@login_required
+def profile(request, user_id):
+        user = User.objects.get(id=user_id)
+        characters = Character.objects.filter(user=user)
+        return render(request, 'profile.html', {'id': id, 'characters': characters})

@@ -16,7 +16,7 @@
 <body>
     <nav>
         {% if user.is_authenticated %}
-        <span>Hello, {{ user.first_name }}!</span>
+        <span>Hello, <a href="{% url 'profile' user.id %}">{{ user.first_name }}</a>!</span>
         <span>|</span>
         <span><a href="{% url 'logout' %}">Logout</a></span>
         <span>|</span>
