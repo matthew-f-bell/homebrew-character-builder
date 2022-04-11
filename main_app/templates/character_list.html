@@ -6,24 +6,28 @@
 
 {% block body %}
     <h1>All Characters:</h1>
-    {% for character in characters %}
-    {% if character.image %}
-        <a href="{% url 'character-detail' character.pk %}">
-            <img src="{{character.image}}" alt="{{character.name}}" />
-        </a>
-    {% else %}
-    {% endif %}
-    <h3>Name: 
-        <a href="{% url 'character-detail' character.pk %}">
-            {{character.name}}
-        </a>
-    </h3>
-    <h3>Race: {{character.race}}</h3>
-    <h3>Class:
-        {% for character_class in character.character_class.all %}
-            <span>{{ character_class.name }}</span>
+    <div class="container">
+        {% for character in characters %}
+            <div class="card">
+            {% if character.image %}
+                <a href="{% url 'character-detail' character.pk %}">
+                    <img class="card-img" src="{{character.image}}" alt="{{character.name}}" />
+                </a>
+            {% else %}
+            {% endif %}
+            <h3 class="card-details">Name: 
+                <a href="{% url 'character-detail' character.pk %}">
+                    {{character.name}}
+                </a>
+            </h3>
+            <h3 class="card-details">Race: {{character.race}}</h3>
+            <h3 class="card-details">Class:
+                {% for character_class in character.character_class.all %}
+                    <span class="card-details hero-block">{{ character_class.name }}</span>
+                {% endfor %}
+            </h3>
+            <p class="card-details">Created By: <a href="{% url 'profile' character.user.id %}">{{ character.user.first_name }}</a></p>
+            </div>
         {% endfor %}
-    </h3>
-    <p>Created By: <a href="{% url 'profile' character.user.id %}">{{ character.user.first_name }}</a></p>
-    {% endfor %}
+    </div>
 {% endblock %}

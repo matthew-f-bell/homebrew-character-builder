@@ -103,7 +103,7 @@ def signup_view(request):
                         user.save()
                         login(request, user)
                         print('HEY ', user.first_name)
-                        return HttpResponseRedirect('/')
+                        return HttpResponseRedirect('/login')
                 else:
                         return render(request, 'signup.html', {'form': form})
         else:
