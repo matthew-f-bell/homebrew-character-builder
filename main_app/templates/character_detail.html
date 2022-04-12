@@ -29,21 +29,22 @@
             <h3 id="int">Intelligence: {{character.intelligence}}</h3>
             <h3 id="wis">Wisdom: {{character.wisdom}}</h3>
             <h3 id="cha">Charisma: {{character.charisma}}</h3>
-            {% if character.spells %}
-                <div id="spells">
-                    <h3>Spells:</h3>
-                    <div>
-                    {% for spell in spells %}
-                        <span class="spells">{{ character.spell.name }}</span>
-                    {% endfor %}
-                    </div>
-                </div>
-            {% else %}
-            {% endif %}
+            <div id="spell-list">
+                <h3>Spells:</h3>
+                {% for spell in character.spells.all %}
+                    <span class="spells">
+                        <a href="{% url 'spell-detail' spell.id %}">
+                            {{ spell.name }}
+                        </a>
+                    </span>
+                {% empty %}
+                <span class="spells">This character has no spells!</span>
+                {% endfor %}
+            </div>
         </div>
         <p id="char-owner">Created By: <a href="{% url 'profile' character.user.id %}">{{ character.user.first_name }}</a></p>
         {% if character.user.id is user.id %}
-        <div>
+        <div id="char-crud">
             <a href="{% url 'character-update' character.pk %}">Update</a>
             <a href="{% url 'character-delete' character.pk %}">Delete</a>
         </div>

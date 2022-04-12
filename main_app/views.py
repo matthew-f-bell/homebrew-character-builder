@@ -48,7 +48,7 @@ class Character_Detail(DetailView):
 @method_decorator(login_required, name='dispatch')
 class Character_Update(UpdateView):
         model = Character
-        fields = '__all__'
+        fields = ['name', 'age', 'race', 'character_class', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma', 'image', 'spells']
         template_name = 'character_update.html'
         success_url = '/characters/'
 

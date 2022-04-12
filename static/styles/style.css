@@ -35,8 +35,49 @@ nav {
       border-radius: 25px; }
 
 .character-specs {
-  position: absolute; }
+  position: absolute;
+  min-width: 1000px;
+  left: 5em; }
   .character-specs .character-img {
-    width: 500px; }
+    position: absolute;
+    width: 500px;
+    top: 50px;
+    left: 50px; }
+  .character-specs #name {
+    position: absolute;
+    top: 75px;
+    left: 750px;
+    min-width: 200px; }
+  .character-specs #age {
+    position: absolute;
+    top: 125px;
+    left: 820px; }
+  .character-specs #race {
+    position: absolute;
+    top: 150px;
+    left: 725px; }
+  .character-specs #class {
+    position: absolute;
+    top: 150px;
+    left: 850px;
+    min-width: 200px; }
+  .character-specs #str {
+    position: absolute;
+    top: 200px;
+    left: 700px; }
+  .character-specs #dex {
+    position: absolute; }
+  .character-specs #con {
+    position: absolute; }
+  .character-specs #int {
+    position: absolute; }
+  .character-specs #wis {
+    position: absolute; }
+  .character-specs #cha {
+    position: absolute; }
+  .character-specs #spell-list {
+    position: absolute; }
+  .character-specs #char-crud {
+    position: absolute; }
 
 /*# sourceMappingURL=style.css.map */

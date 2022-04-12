@@ -52,8 +52,73 @@ nav {
 // Character Detail Styling
 .character-specs {
     position: absolute;
+    min-width: 1000px;
+    left: 5em;
 
     .character-img {
+        position: absolute;
         width: 500px;
+        top: 50px;
+        left: 50px;
+    }
+
+    #name {
+        position: absolute;
+        top: 75px;
+        left: 750px;
+        min-width: 200px;
+    }
+
+    #age {
+        position: absolute;
+        top: 125px;
+        left: 820px;
+    }
+
+    #race {
+        position: absolute;
+        top: 150px;
+        left: 725px;
+    }
+
+    #class {
+        position: absolute;
+        top: 150px;
+        left: 850px;
+        min-width: 200px;
+    }
+
+    #str {
+        position: absolute;
+        top: 200px;
+        left: 700px;
+    }
+
+    #dex {
+        position: absolute;
+    }
+
+    #con {
+        position: absolute;
+    }
+
+    #int {
+        position: absolute;
+    }
+
+    #wis {
+        position: absolute;
+    }
+
+    #cha {
+        position: absolute;
+    }
+
+    #spell-list {
+        position: absolute;
+    }
+
+    #char-crud {
+        position: absolute;
     }
 }
