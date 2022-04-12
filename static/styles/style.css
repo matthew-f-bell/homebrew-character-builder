@@ -50,34 +50,66 @@ nav {
     min-width: 200px; }
   .character-specs #age {
     position: absolute;
-    top: 125px;
+    top: 135px;
     left: 820px; }
   .character-specs #race {
     position: absolute;
-    top: 150px;
+    top: 165px;
     left: 725px; }
   .character-specs #class {
     position: absolute;
-    top: 150px;
+    top: 165px;
     left: 850px;
     min-width: 200px; }
+    .character-specs #class .char-class {
+      background: crimson;
+      color: white;
+      border-radius: 10px;
+      text-align: center;
+      font-size: .9em;
+      padding: 0 10px; }
   .character-specs #str {
     position: absolute;
     top: 200px;
-    left: 700px; }
+    left: 575px;
+    text-align: center; }
   .character-specs #dex {
-    position: absolute; }
+    position: absolute;
+    top: 200px;
+    left: 660px;
+    text-align: center; }
   .character-specs #con {
-    position: absolute; }
+    position: absolute;
+    top: 200px;
+    left: 745px;
+    text-align: center; }
   .character-specs #int {
-    position: absolute; }
+    position: absolute;
+    top: 200px;
+    left: 860px;
+    text-align: center; }
   .character-specs #wis {
-    position: absolute; }
+    position: absolute;
+    top: 200px;
+    left: 975px;
+    text-align: center; }
   .character-specs #cha {
-    position: absolute; }
+    position: absolute;
+    top: 200px;
+    left: 1060px;
+    text-align: center; }
   .character-specs #spell-list {
-    position: absolute; }
+    position: absolute;
+    top: 300px;
+    left: 800px; }
   .character-specs #char-crud {
-    position: absolute; }
+    position: absolute;
+    top: 50px;
+    left: 1000px;
+    min-width: 200px; }
+  .character-specs #char-owner {
+    position: absolute;
+    top: 120px;
+    left: 790px; }
 
 /*# sourceMappingURL=style.css.map */

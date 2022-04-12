@@ -20,15 +20,15 @@
             <h3 id="race">Race: {{character.race}}</h3>
             <h3 id="class">Class: 
                 {% for character_class in character.character_class.all %}
-                    <span>{{ character_class.name }}</span>
+                    <span class="char-class">{{ character_class.name }}</span>
                 {% endfor %}
             </h3>
-            <h3 id="str">Strength: {{character.strength}}</h3>
-            <h3 id="dex">Dexteriy: {{character.dexteriy}}</h3>
-            <h3 id="con">Constitution: {{character.constitution}}</h3>
-            <h3 id="int">Intelligence: {{character.intelligence}}</h3>
-            <h3 id="wis">Wisdom: {{character.wisdom}}</h3>
-            <h3 id="cha">Charisma: {{character.charisma}}</h3>
+            <h3 id="str">Strength:<br />{{character.strength}}</h3>
+            <h3 id="dex">Dexteriy:<br />{{character.dexterity}}</h3>
+            <h3 id="con">Constitution:<br />{{character.constitution}}</h3>
+            <h3 id="int">Intelligence:<br />{{character.intelligence}}</h3>
+            <h3 id="wis">Wisdom:<br />{{character.wisdom}}</h3>
+            <h3 id="cha">Charisma:<br />{{character.charisma}}</h3>
             <div id="spell-list">
                 <h3>Spells:</h3>
                 {% for spell in character.spells.all %}

@@ -1,3 +1,13 @@
+// Mixins
+@mixin class-card() {
+    background: crimson;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    font-size: .9em;
+    padding: 0 10px;
+}
+
 
 // General Overall Site Styling
 body {
@@ -32,12 +42,7 @@ nav {
             margin: 1px auto;
 
             .hero-block {
-                background: crimson;
-                color: white;
-                border-radius: 10px;
-                text-align: center;
-                font-size: .9em;
-                padding: 0 10px;
+                @include class-card();
             }
         }
 
@@ -71,54 +76,85 @@ nav {
 
     #age {
         position: absolute;
-        top: 125px;
+        top: 135px;
         left: 820px;
     }
 
     #race {
         position: absolute;
-        top: 150px;
+        top: 165px;
         left: 725px;
     }
 
     #class {
         position: absolute;
-        top: 150px;
+        top: 165px;
         left: 850px;
         min-width: 200px;
+
+        .char-class {
+            @include class-card();
+        }
     }
 
     #str {
         position: absolute;
         top: 200px;
-        left: 700px;
+        left: 575px;
+        text-align: center;
     }
 
     #dex {
         position: absolute;
+        top: 200px;
+        left: 660px;
+        text-align: center;
     }
 
     #con {
         position: absolute;
+        top: 200px;
+        left: 745px;
+        text-align: center;
     }
 
     #int {
         position: absolute;
+        top: 200px;
+        left: 860px;
+        text-align: center;
     }
 
     #wis {
         position: absolute;
+        top: 200px;
+        left: 975px;
+        text-align: center;
     }
 
     #cha {
         position: absolute;
+        top: 200px;
+        left: 1060px;
+        text-align: center;
     }
 
     #spell-list {
         position: absolute;
+        top: 300px;
+        left: 800px;
     }
 
     #char-crud {
         position: absolute;
+        top: 50px;
+        left: 1000px;
+        min-width: 200px;
+    }
+
+    #char-owner {
+        position: absolute;
+        top: 120px;
+        left: 790px;
     }
 }
