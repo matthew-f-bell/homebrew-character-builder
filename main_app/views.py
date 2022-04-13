@@ -33,13 +33,8 @@ class Character_Create(FormView):
         model = Character
         form_class = CharacterCreationForm
         template_name = 'character_create.html'
-
-        def get_context_data(self, **kwargs):
-            context = super().get_context_data(**kwargs)
-            context['spells'] = Spell.objects.all()
-            context['char_classes'] = Character_Class.objects.all()
-            return context
-
+        success_url = '/characters/'
+        
         def form_valid(self, form):
                 self.object = form.save(commit=False)
                 self.object.user = self.request.user

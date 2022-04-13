@@ -14,11 +14,11 @@ class RegistrationForm(UserCreationForm):
         fields = ['email', 'first_name', 'last_name', 'password1', 'password2']
 
 # Custom Character Creation Form
-class CharacterCreationForm(forms.Form):
+class CharacterCreationForm(forms.ModelForm):
     name = forms.CharField(max_length=250)
     age = forms.IntegerField()
     race = forms.CharField(max_length=50)
-    character_class = forms.CharField(widget=forms.HiddenInput)
+    character_class = forms.ModelMultipleChoiceField(queryset=Character_Class.objects.all(), widget=forms.CheckboxSelectMultiple)
     strength = forms.IntegerField()
     dexterity = forms.IntegerField()
     constitution = forms.IntegerField()
@@ -26,8 +26,9 @@ class CharacterCreationForm(forms.Form):
     wisdom = forms.IntegerField()
     charisma = forms.IntegerField()
     image = forms.CharField(max_length=250)
-    spells = forms.CharField(widget=forms.HiddenInput)
+    spells = forms.ModelMultipleChoiceField(queryset=Spell.objects.all(), widget=forms.CheckboxSelectMultiple)
 
+    
     class Meta:
         model = Character
         fields = ['name', 'age', 'race', 'character_class', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma', 'image', 'spells']
