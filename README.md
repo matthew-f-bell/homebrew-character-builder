@@ -27,3 +27,5 @@ When creating a new character does not save Character Class and Spells but, will
 - Flesh out details to look like a D&D Character sheet
 - Add a D&D api
 - Allow users to upload their own photos
+- Limits Spells to Classes so characters can't use all spells only ones for their selected classes
+- Limit number of classes to characters to 2 classes
