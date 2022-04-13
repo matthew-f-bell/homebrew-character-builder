@@ -31,3 +31,5 @@ When creating a new character does not save Character Class and Spells but, will
 - Limit number of classes to characters to 2 classes
 - Add a Feats and Race Model as a many to many
 - Restrict Feats to different Races
+- Restrict Stats total to not exceed standard character build as mentioned in the official D&D Player Handbook
+- Add "dice" to create random stats
