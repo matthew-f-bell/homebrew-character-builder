@@ -5,20 +5,22 @@
 {% endblock %}
 
 {% block body %}
-    <h1>All Characters:</h1>
-    {% for spell in spells %}
-    <div>
-            <h3>Name:
-                <a href="{% url 'spell-detail' spell.id %}">
-                    {{spell.name}}
-                </a>
+    <h1>All Spells:</h1>
+    <div class="container">
+        {% for spell in spells %}
+        <div class="card">
+                <h3 class="card-details">Name:
+                    <a href="{% url 'spell-detail' spell.id %}">
+                        {{spell.name}}
+                    </a>
+                </h3>
+            <h3 class="card-details">Level: {{spell.level}}</h3>
+            <h3 class="card-details">Class: 
+                {% for character_class in spell.character_class.all %}
+                    <span class="card-details hero-block">{{ character_class.name }}</span>
+                {% endfor %}
             </h3>
-        <h3>Level: {{spell.level}}</h3>
-        <h3>Class: 
-            {% for character_class in spell.character_class.all %}
-                <span>{{ character_class.name }}</span>
-            {% endfor %}
-        </h3>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 {% endblock %}

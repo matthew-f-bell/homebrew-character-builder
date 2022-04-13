@@ -9,7 +9,9 @@
 
     <form method="post">
         {% csrf_token %}
-        {{form.as_p}}
+        <h4>
+            {{form.as_p}}
+        </h4>
         <input type="submit" value="Submit">
     </form>
 {% endblock %}

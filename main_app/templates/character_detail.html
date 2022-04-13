@@ -5,36 +5,50 @@
 {% endblock %}
 
 {% block body %}
-    {% if character.image %}
-        <div>
-            <img src="{{character.image}}" alt="{{character.name}}">
+    <div class="character-specs">
+        {% if character.image %}
+            <div>
+                <img class="character-img" src="{{character.image}}" alt="{{character.name}}">
+            </div>
+        {% else %}
+        {% endif %}
+        <div id="name">
+            <h1>{{character.name}}</h1>
         </div>
-    {% else %}
-    {% endif %}
-    <div>
-        <h1>{{character.name}}</h1>
+        <div>
+            <h3 id="age">Age: {{character.age}}</h3>
+            <h3 id="race">Race: {{character.race}}</h3>
+            <h3 id="class">Class: 
+                {% for character_class in character.character_class.all %}
+                    <span class="char-class">{{ character_class.name }}</span>
+                {% endfor %}
+            </h3>
+            <h3 id="str">Strength:<br />{{character.strength}}</h3>
+            <h3 id="dex">Dexteriy:<br />{{character.dexterity}}</h3>
+            <h3 id="con">Constitution:<br />{{character.constitution}}</h3>
+            <h3 id="int">Intelligence:<br />{{character.intelligence}}</h3>
+            <h3 id="wis">Wisdom:<br />{{character.wisdom}}</h3>
+            <h3 id="cha">Charisma:<br />{{character.charisma}}</h3>
+            <div id="spell-list">
+                <h3>Spells:</h3>
+                {% for spell in character.spells.all %}
+                    <span class="spells">
+                        <a href="{% url 'spell-detail' spell.id %}">
+                            {{ spell.name }}
+                        </a>
+                    </span>
+                {% empty %}
+                <span class="spells">This character has no spells!</span>
+                {% endfor %}
+            </div>
+        </div>
+        <p id="char-owner">Created By: <a href="{% url 'profile' character.user.id %}">{{ character.user.first_name }}</a></p>
+        {% if character.user.id is user.id %}
+        <div id="char-crud">
+            <a href="{% url 'character-update' character.pk %}">Update</a>
+            <a href="{% url 'character-delete' character.pk %}">Delete</a>
+        </div>
+        {% else %}
+        {% endif %}
     </div>
-    <div>
-        <h3>Age: {{character.age}}</h3>
-        <h3>Race: {{character.race}}</h3>
-        <h3>Class: 
-            {% for character_class in character.character_class.all %}
-                <span>{{ character_class.name }}</span>
-            {% endfor %}
-        </h3>
-        <h3>Strength: {{character.strength}}</h3>
-        <h3>Dexteriy: {{character.dexteriy}}</h3>
-        <h3>Constitution: {{character.constitution}}</h3>
-        <h3>Intelligence: {{character.intelligence}}</h3>
-        <h3>Wisdom: {{character.wisdom}}</h3>
-        <h3>Charisma: {{character.charisma}}</h3>
-    </div>
-    <p>Created By: <a href="{% url 'profile' character.user.id %}">{{ character.user.first_name }}</a></p>
-    {% if character.user.id is user.id %}
-    <div>
-        <a href="{% url 'character-update' character.pk %}">Update</a>
-        <a href="{% url 'character-delete' character.pk %}">Delete</a>
-    </div>
-    {% else %}
-    {% endif %}
 {% endblock %}

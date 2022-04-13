@@ -2,14 +2,14 @@ from django.urls import reverse
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import DetailView
+from django.views.generic import DetailView, FormView
 from django.http import HttpResponseRedirect
-from .models import Character, Spell, User
+from .models import Character, Character_Class, Spell, User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .forms import RegistrationForm
+from .forms import RegistrationForm, CharacterCreationForm
 
 
 # Create your views here.
@@ -29,11 +29,12 @@ class Character_List(TemplateView):
                 return context
 
 @method_decorator(login_required, name='dispatch')
-class Character_Create(CreateView):
+class Character_Create(FormView):
         model = Character
-        fields = ['name', 'age', 'race', 'character_class', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma', 'image', 'spells']
+        form_class = CharacterCreationForm
         template_name = 'character_create.html'
-
+        success_url = '/characters/'
+        
         def form_valid(self, form):
                 self.object = form.save(commit=False)
                 self.object.user = self.request.user
@@ -48,8 +49,15 @@ class Character_Detail(DetailView):
 @method_decorator(login_required, name='dispatch')
 class Character_Update(UpdateView):
         model = Character
-        fields = '__all__'
+        form_class = CharacterCreationForm
         template_name = 'character_update.html'
+        
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['spells'] = Spell.objects.all()
+            context['char_classes'] = Character_Class.objects.all()
+            return context
+
         success_url = '/characters/'
 
 @method_decorator(login_required, name='dispatch')
@@ -103,7 +111,7 @@ def signup_view(request):
                         user.save()
                         login(request, user)
                         print('HEY ', user.first_name)
-                        return HttpResponseRedirect('/')
+                        return HttpResponseRedirect('/login')
                 else:
                         return render(request, 'signup.html', {'form': form})
         else:
