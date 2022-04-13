@@ -29,3 +29,5 @@ When creating a new character does not save Character Class and Spells but, will
 - Allow users to upload their own photos
 - Limits Spells to Classes so characters can't use all spells only ones for their selected classes
 - Limit number of classes to characters to 2 classes
+- Add a Feats and Race Model as a many to many
+- Restrict Feats to different Races
