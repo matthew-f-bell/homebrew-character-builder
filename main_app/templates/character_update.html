@@ -9,7 +9,44 @@
 
     <form method="post">
         {% csrf_token %}
-        {{form.as_p}}
+        <h4>
+            {{form.as_p}}
+        </h4>
+        <div>
+            <h4>Character Class:</h4>
+            {% for char_class in char_classes %}
+                <div>
+                    <input type="checkbox" class="char-class__list-item-checkbox" value="{{ spell.id }}" name="spell"/>
+                    {{ char_class.name }}
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            <h4>Spells:</h4>
+            {% for spell in spells %}
+                <div>
+                    <input type="checkbox" class="spell__list-item-checkbox" value="{{ spell.id }}" name="spell"/>
+                    {{ spell.name }}
+                </div>
+            {% endfor %}
+        </div>
+        <br />
         <input type="submit" value="Submit">
     </form>
+
+    <script>
+        const spells = document.querySelectorAll('.spell__list-item-checkbox');
+        for (let i = 0; i < spells.length; i++) {
+            spells[i].addEventListener('click', () => {
+            {}
+            })
+        }
+
+        const charClass = document.querySelectorAll('.char-class__list-item-checkbox');
+        for (let i = 0; i < charClass.length; i++) {
+            charClass[i].addEventListener('click', () => {
+            {}
+            })
+        }
+    </script>
 {% endblock %}
